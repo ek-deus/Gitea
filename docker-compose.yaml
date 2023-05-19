@@ -1,0 +1,22 @@
+version: '2'
+services:
+  web:
+    image: gitea/gitea:latest
+    volumes:
+      - ./data:/data
+    ports:
+      - "3030:3000"
+      - "2222:22"
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: mariadb:10
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123123
+      - MYSQL_DATABASE=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=123123
+    volumes:
+      - ./db/:/var/lib/mysql
